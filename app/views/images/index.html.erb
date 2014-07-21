@@ -1,0 +1,74 @@
+<%- model_class = Image -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+
+<h1>FancyBox</h1>
+    <% @images.each do |image| %>
+      <a class="fancybox" rel="gallery1" href="<%= image.image_url %>">
+      <img src="<%= image.image_url(:thumb) %>" alt=""/></a>
+    <% end %>
+<script type="text/javascript">
+  $(".fancybox").fancybox({
+   helpers  : {
+      title : {
+        type: 'outside'
+      },
+      buttons : {},
+      thumbs  : {
+        width : 50,
+        height  : 50
+      }
+    }
+  });
+</script>
+
+<h1>carousel-bootstrap</h1>
+<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+  </ol>
+
+  <!-- Wrapper for slides -->
+ 
+  <div class="carousel-inner">
+ <div class="item active">
+          <img src="../uploads/image/image/15/hon16e.jpg" alt="First slide">
+        </div>
+     <% @images.each do |image| %>
+      <div class="item">
+  <img src="<%= image.image %>" alt="...">
+  </div>
+      <% end %>
+      </div>
+
+  <!-- Controls -->
+  <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left"></span>
+  </a>
+  <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right"></span>
+  </a>
+</div>
+
+<%= stylesheet_link_tag 'jquery.rambling.slider' %>
+<%= javascript_include_tag 'jquery.rambling.slider' %>
+<h1>Bx slider</h1>
+<ul class="bxslider">
+  <% @images.each do |image| %>
+ <li> <img src="<%= image.image %>" alt="<%= image.id %>" /></li>
+  <% end %>
+</ul>
+
+ <script type="text/javascript">
+  $('.bxslider').bxSlider(
+     {mode: 'vertical'}
+     );
+    </script>
+
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_image_path,
+            :class => 'btn btn-primary' %>
